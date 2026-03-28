@@ -36,7 +36,7 @@
   </style>
 </head>
 
-<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 h-screen flex items-center justify-center overflow-hidden pt-8">
+<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 h-screen flex items-center justify-center overflow-hidden">
 
   <!-- Background Music -->
   <audio id="bgMusic" loop preload="auto">
@@ -58,7 +58,7 @@
 
         <!-- Countdown Text -->
         <p id="countdown"
-          class="relative text-3xl md:text-6xl font-extrabold text-white/85 glow-text px-6 py-4">
+          class="relative text-3xl md:text-6xl font-extrabold text-white/90 glow-text px-6 py-4">
         </p>
 
       </div>
@@ -72,8 +72,8 @@
         <img id="slide" class="w-64 h-64 object-cover rounded-3xl shadow-2xl mx-auto">
       </div>
 
-      <h1 class="text-4xl md:text-6xl font-extrabold text-pink-600 mb-4 animate-bounce">
-        Happy Birthday Little Sister <br> Nongleima💖
+      <h1 class="text-xl sm:text-3xl font-extrabold text-pink-600 mb-4 animate-bounce">
+        Happy Birthday Little Sister <br> <p class="text-2xl sm:text-3xl">Nongleima💖</p>
       </h1>
 
       <p class="md:text-xl text-gray-700 mb-6">
@@ -97,7 +97,7 @@
   
   // ===== COUNTDOWN TO 29 MARCH 2026 12:00 AM IST =====
   const targetDate = new Date("2026-03-29T00:00:00+05:30").getTime();
-  // const targetDate = new Date("2026-03-28T23:24:00+05:30").getTime();
+  // const targetDate = new Date("2026-03-28T23:34:00+05:30").getTime();
   
   const countdownEl = document.getElementById("countdown");
   const countdownBox = document.getElementById("countdownBox");

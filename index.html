@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Birthday Nongleima💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <style>
+    .fade {
+      animation: fadeIn 2s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+      .fade {
+        animation: fadeIn 2s ease-in-out;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+      }
+
+      /* ✨ Glow Effect */
+      .glow-text {
+        text-shadow: 
+          0 0 10px rgba(255, 105, 180, 0.9),
+          0 0 20px rgba(255, 105, 180, 0.8),
+          0 0 40px rgba(255, 105, 180, 0.7),
+          0 0 80px rgba(255, 105, 180, 0.6);
+      }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-pink-200 via-purple-200 to-indigo-200 h-screen flex items-center justify-center overflow-hidden pt-8">
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop preload="auto">
+    <source src="./bday.mp3" type="audio/mp3">
+  </audio>
+
+  <!-- Main Container -->
+  <div class="text-center px-4">
+
+    <!-- Countdown -->
+    <div id="countdownBox">
+      <h1 class="text-3xl md:text-5xl font-bold text-pink-600 mb-6 animate-pulse">
+        Something special is coming 🎁
+      </h1>
+      <div class="relative flex justify-center items-center">
+
+        <!-- Glow Background -->
+        <div class="absolute w-72 h-72 bg-white opacity-20 blur-3xl rounded-full animate-pulse"></div>
+
+        <!-- Countdown Text -->
+        <p id="countdown"
+          class="relative text-3xl md:text-6xl font-extrabold text-white/85 glow-text px-6 py-4">
+        </p>
+
+      </div>
+    </div>
+
+    <!-- Surprise Content -->
+    <div id="surprise" class="hidden fade">
+
+      <!-- Slideshow -->
+      <div class="mb-6">
+        <img id="slide" class="w-64 h-64 object-cover rounded-3xl shadow-2xl mx-auto">
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-extrabold text-pink-600 mb-4 animate-bounce">
+        Happy Birthday Little Sister <br> Nongleima💖
+      </h1>
+
+      <p class="md:text-xl text-gray-700 mb-6">
+        Wishing you a very Happy Birthday 🎂✨  
+        May your day be filled with happiness, laughter, and beautiful moments 💖  
+        Stay blessed and keep smiling always 😊
+      </p>
+
+      <button onclick="startParty()" 
+        class="px-6 py-3 bg-pink-500 text-white rounded-full shadow-lg hover:scale-110 transition">
+        Tap for Magic ✨
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Canvas -->
+  <canvas id="canvas" class="absolute top-0 left-0 w-full h-full pointer-events-none"></canvas>
+
+<script>
+  
+  // ===== COUNTDOWN TO 29 MARCH 2026 12:00 AM IST =====
+  const targetDate = new Date("2026-03-29T00:00:00+05:30").getTime();
+  // const targetDate = new Date("2026-03-28T23:24:00+05:30").getTime();
+  
+  const countdownEl = document.getElementById("countdown");
+  const countdownBox = document.getElementById("countdownBox");
+  const surprise = document.getElementById("surprise");
+  const music = document.getElementById("bgMusic");
+
+
+  function enableMusicAfterReveal() {
+    const playMusic = () => {
+      music.play().catch(() => {});
+      document.removeEventListener("click", playMusic);
+    };
+
+    document.addEventListener("click", playMusic);
+  }
+
+  const interval = setInterval(() => {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+      clearInterval(interval);
+      countdownBox.classList.add("hidden");
+      surprise.classList.remove("hidden");
+      music.play();
+      startSlideshow();
+
+      // 👇 Play music ONLY after user interacts
+      enableMusicAfterReveal();
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((distance / (1000 * 60)) % 60);
+    const seconds = Math.floor((distance / 1000) % 60);
+
+    countdownEl.innerHTML = 
+      `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  }, 1000);
+
+
+  // ===== SLIDESHOW =====
+  const images = [
+    "photo1.jpeg",
+    "photo2.jpeg",
+    "photo3.jpeg"
+  ];
+
+  let index = 0;
+  const slide = document.getElementById("slide");
+
+  function startSlideshow() {
+    slide.src = images[index];
+    setInterval(() => {
+      index = (index + 1) % images.length;
+      slide.src = images[index];
+    }, 2000);
+  }
+
+
+  // ===== CONFETTI + FIREWORKS =====
+  const canvas = document.getElementById("canvas");
+  const ctx = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particles = [];
+
+  function startParty() {
+    music.play();
+    for (let i = 0; i < 200; i++) {
+      particles.push({
+        x: canvas.width / 2,
+        y: canvas.height / 2,
+        radius: Math.random() * 4 + 2,
+        color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+        speedX: (Math.random() - 0.5) * 8,
+        speedY: (Math.random() - 0.5) * 8
+      });
+    }
+    animateParticles();
+  }
+
+  function animateParticles() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach((p, i) => {
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    });
+
+    requestAnimationFrame(animateParticles);
+  }
+</script>
+
+</body>
+</html>
